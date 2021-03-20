@@ -1,0 +1,23 @@
+:root {
+    --background-colour: #56DD8F;
+    --font-colour: #707070;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--font-colour);
+    outline: none;
+    border: none;
+}
+
+html, body {
+    width: 100%;
+}
+
+.btn-coloured {
+    background-color: var(--background-colour);
+    border-radius: 5px;
+    padding: 7px 10px;
+    cursor: pointer;
+}

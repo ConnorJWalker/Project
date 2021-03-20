@@ -1,0 +1,15 @@
+section {
+    width: 70%;
+    display: flex;
+    margin: 25px auto 0;
+    padding: 10px 0 25px;
+    border-bottom: 1px var(--font-colour) solid;
+}
+
+section div {
+    width: 50%;
+}
+
+.filepath-selector {
+    text-align: right;
+}
