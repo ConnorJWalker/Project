@@ -9,15 +9,20 @@
     <title>Project - Select Guitar Pro File</title>
 </head>
 <body>
-    <section>
-        <div>
-            <h1>Select a Song:</h1>
-        </div>
-        <div class="filepath-selector">
-            <p id="filepath-lbl"></p>
-            <button id="search-btn" class="btn-coloured">Search</button>
-        </div>
-    </section>
+    <div class="container">
+        <section>
+            <div>
+                <h1>Select a Song:</h1>
+            </div>
+            <div class="filepath-selector">
+                <p id="filepath-lbl"></p>
+                <button id="search-btn" class="btn-coloured">Search</button>
+            </div>
+        </section>
+        <section>
+            <p id="recent-file-errors"></p>
+        </section>
+    </div>
 
     <script src="../scripts/fileSelector.js"></script>
 </body>
