@@ -1,15 +1,17 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
+const fileSelector = require('./ipcMainScripts/fileSelector')
 
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
         }
     })
 
+    fileSelector.AddEventListeners(ipcMain)
     win.loadFile('ui/views/fileSelector.html')
 }
 
