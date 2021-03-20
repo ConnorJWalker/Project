@@ -1,3 +1,5 @@
+let selectedFile = ''
+
 window.addEventListener('DOMContentLoaded', () => {
     const filepathLbl = document.getElementById('filepath-lbl')
     const fileErrorLbl = document.getElementById('recent-file-errors')
@@ -6,10 +8,15 @@ window.addEventListener('DOMContentLoaded', () => {
         window.postMessage({ message: 'open-file-dialogue' })
     })
 
+    document.getElementById('continue-btn').addEventListener('click', () => {
+        
+    })
+
     window.addEventListener('ipc-loaded-file', event => {
         if (event.detail.canceled) return
 
-        filepathLbl.innerText = event.detail.filePaths[0]
+        selectedFile = event.detail.filePaths[0]
+        filepathLbl.innerText = selectedFile
     })
 
     window.addEventListener('ipc-recent-files', event => {

@@ -22,3 +22,8 @@ section div {
     text-align: center;
     width: 100%;
 }
+
+footer {
+    text-align: right;
+    margin-top: 25px;
+}
