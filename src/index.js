@@ -14,7 +14,11 @@ function createWindow() {
 
     fileSelector.AddEventListeners(ipcMain)
     win.loadFile('ui/views/fileSelector.html')
-    console.log(guitarApi.add(10, 5))
+    
+    ipcMain.on('move-to-tabs-page', event => {
+        fileSelector.RemoveEventListeners(ipcMain)
+        win.loadFile('ui/views/mainPage.html')
+    })
 }
 
 app.whenReady().then(() => {

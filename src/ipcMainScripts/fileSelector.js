@@ -44,7 +44,7 @@ exports.AddEventListeners = ipcMain => {
 
 exports.RemoveEventListeners = ipcMain => {
     ['open-file-dialogue', 'get-recent-files', 'open-gp-file'].forEach(listener => {
-        ipcMain.removeListener(listener)
+        ipcMain.removeAllListeners(listener)
     })
 }
 
