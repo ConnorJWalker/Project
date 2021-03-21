@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const fileSelector = require('./ipcMainScripts/fileSelector')
+const guitarApi = require('./guitarApi')
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -13,6 +14,7 @@ function createWindow() {
 
     fileSelector.AddEventListeners(ipcMain)
     win.loadFile('ui/views/fileSelector.html')
+    console.log(guitarApi.add(10, 5))
 }
 
 app.whenReady().then(() => {
