@@ -38,7 +38,7 @@ exports.AddEventListeners = ipcMain => {
 
         python.stdout.on('data', data => outputString += data.toString())
         python.stderr.on('data', err => console.error(err.toString()))
-        python.on('exit', () =>  updateRecentFiles(event, outputString))
+        python.on('exit', () =>  updateRecentFiles(event, outputString, file))
     })
 }
 
@@ -48,22 +48,22 @@ exports.RemoveEventListeners = ipcMain => {
     })
 }
 
-function updateRecentFiles(event, file) {
+function updateRecentFiles(event, file, filepath) {
     if (!checkRecentsFileExists()) return
 
     file = JSON.parse(file)
-    const index = recentFiles.recents.findIndex(element => 
-        element.artist === file.artist && element.title === file.artist
+    const index = recentFiles.recents.findIndex(element =>
+        element.artist === file.artist && element.title === file.title    
     )
 
     // Selected song is not in recent files list if index is -1
     if (index === -1) {
         if (recentFiles.recents.length >= 5)
             recentFiles.recents.pop()
-        recentFiles.recents.unshift({ artist: file.artist, title: file.title, date: Date.now() })
+        recentFiles.recents.unshift({ artist: file.artist, title: file.title, date: Date.now(), path: filepath })
     } else {
         selected = recentFiles.recents[index]
-        selected.date = Date.now
+        selected.date = Date.now()
         recentFiles.recents.splice(index, 1)
         recentFiles.recents.unshift(selected)
     }
