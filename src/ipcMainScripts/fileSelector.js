@@ -16,6 +16,9 @@ exports.AddEventListeners = ipcMain => {
 
     ipcMain.on('get-recent-files', event => {
         const responseName = 'ipc-recent-files'
+        if (!checkRecentsFileExists()) 
+            event.sender.send('message', { message: responseName, data: { success: false } })
+
         fs.readFile(recentFilesPath, 'utf8', (err, file) => {
             if (err) {
                 console.error(err)
@@ -46,6 +49,8 @@ exports.RemoveEventListeners = ipcMain => {
 }
 
 function updateRecentFiles(event, file) {
+    if (!checkRecentsFileExists()) return
+
     file = JSON.parse(file)
     const index = recentFiles.recents.findIndex(element => 
         element.artist === file.artist && element.title === file.artist
@@ -66,4 +71,17 @@ function updateRecentFiles(event, file) {
     fs.writeFile(recentFilesPath, JSON.stringify(recentFiles), 'utf8', () => {
         event.sender.send('message', { message: 'ipc-open-gp-file', data: file })
     })
+}
+
+function checkRecentsFileExists() {
+    if (fs.existsSync(recentFilesPath)) return true
+
+    const structure = JSON.stringify({ recents: [] })
+    try {
+        fs.writeFileSync(recentFilesPath, structure, 'utf8')
+        return true
+    } catch (e) {
+        console.error(e)
+        return false
+    }
 }
