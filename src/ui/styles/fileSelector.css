@@ -28,7 +28,7 @@ section {
     padding: 5px 0;
 }
 
-.recent-file:hover {
+.recent-file:hover, .selected {
     background-color: #56DD8F40;
     cursor: pointer;
 }

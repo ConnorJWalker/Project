@@ -1,15 +1,22 @@
-let selectedFile = ''
+let selectedFile = '', selectedRecentFilepath = '', selectedIndex = null
+let filepathLbl, fileErrorLbl, recentFilesElements
 
 window.addEventListener('DOMContentLoaded', () => {
-    const filepathLbl = document.getElementById('filepath-lbl')
-    const fileErrorLbl = document.getElementById('recent-file-errors')
+    filepathLbl = document.getElementById('filepath-lbl')
+    fileErrorLbl = document.getElementById('recent-file-errors')
 
     document.getElementById('search-btn').addEventListener('click', () => {
         window.postMessage({ message: 'open-file-dialogue' })
     })
 
     document.getElementById('continue-btn').addEventListener('click', () => {
-        window.postMessage({ message: 'open-gp-file', args: selectedFile })
+        let chosen
+        if (selectedFile === '')
+            chosen = recentFilesElements[selectedIndex].children[2].innerText
+        else
+            chosen = selectedFile
+
+        window.postMessage({ message: 'open-gp-file', args: chosen })
     })
 
     window.addEventListener('ipc-loaded-file', event => {
@@ -17,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         selectedFile = event.detail.filePaths[0]
         filepathLbl.innerText = selectedFile
+        recentFilesElements.forEach(row => row.classList.remove('selected'))
     })
 
     window.addEventListener('ipc-recent-files', event => {
@@ -39,6 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
             let clone = template.content.cloneNode(true)
             clone.getElementById('recent-title').innerText = song.title
             clone.getElementById('recent-artist').innerText = song.artist
+            clone.getElementById('filepath').innerText = song.path
             
             date = new Date(song.date)
             day = date.getDate().toString().padStart(2, '0')
@@ -47,11 +56,25 @@ window.addEventListener('DOMContentLoaded', () => {
             clone.getElementById('recent-date').innerText = `${day}/${month}/${year}`
 
             container.appendChild(clone)
-            console.log(song)
         })
+
+        recentFilesElements = document.querySelectorAll('.recent-file')
+        addRecentsEvents()
     })
 
     window.addEventListener('ipc-open-gp-file', event => console.log(event.detail))
 
     window.postMessage({ message: 'get-recent-files' })
 })
+
+const addRecentsEvents = () => recentFilesElements.forEach((row, i) => row.addEventListener('click', () => {
+    if (selectedIndex !== null)
+        recentFilesElements[selectedIndex].classList.remove('selected')
+    if (selectedFile !== '') {
+        selectedFile = ''
+        filepathLbl.innerText = selectedFile
+    }
+
+    selectedIndex = i
+    row.classList.add('selected')
+}))
