@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById('continue-btn').addEventListener('click', () => {
-        
+        window.postMessage({ message: 'open-gp-file', args: selectedFile })
     })
 
     window.addEventListener('ipc-loaded-file', event => {
@@ -29,6 +29,8 @@ window.addEventListener('DOMContentLoaded', () => {
             return
         }
     })
+
+    window.addEventListener('ipc-open-gp-file', event => console.log(event.detail))
 
     window.postMessage({ message: 'get-recent-files' })
 })
