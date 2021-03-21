@@ -25,6 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
         selectedFile = event.detail.filePaths[0]
         filepathLbl.innerText = selectedFile
         recentFilesElements.forEach(row => row.classList.remove('selected'))
+        enableContinueButton()
     })
 
     window.addEventListener('ipc-recent-files', event => {
@@ -77,4 +78,11 @@ const addRecentsEvents = () => recentFilesElements.forEach((row, i) => row.addEv
 
     selectedIndex = i
     row.classList.add('selected')
+    enableContinueButton()
 }))
+
+const enableContinueButton = () => {
+    if (selectedFile !== '' || selectedIndex !== null) {
+        document.getElementById('continue-btn').disabled = false
+    }
+}

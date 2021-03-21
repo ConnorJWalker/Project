@@ -51,3 +51,8 @@ footer {
     text-align: right;
     margin-top: 25px;
 }
+
+button:disabled, button[disabled] {
+    background-color: #caded2;
+    cursor: not-allowed;
+}
