@@ -4,13 +4,16 @@
 }
 
 section {
-    display: flex;
     margin: 25px auto 0;
     padding: 10px 0 25px;
     border-bottom: 1px var(--font-colour) solid;
 }
 
-section div {
+#header {
+    display: flex;
+}
+
+#header div {
     width: 50%;
 }
 
@@ -18,9 +21,30 @@ section div {
     text-align: right;
 }
 
+.recent-file {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0;
+}
+
+.recent-file:hover {
+    background-color: #56DD8F40;
+    cursor: pointer;
+}
+
+.recent-file > div {
+    width: 50%;
+}
+
+#recent-date {
+    text-align: right;
+}
+
 #recent-file-errors {
     text-align: center;
     width: 100%;
+    display: none;
 }
 
 footer {

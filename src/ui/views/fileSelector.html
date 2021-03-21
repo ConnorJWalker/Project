@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <section>
+        <section id="header">
             <div>
                 <h1>Select a Song:</h1>
             </div>
@@ -19,13 +19,25 @@
                 <button id="search-btn" class="btn-coloured">Search</button>
             </div>
         </section>
-        <section>
+        <section id="recents-container">
             <p id="recent-file-errors"></p>
         </section>
         <footer>
             <button id="continue-btn" class="btn-coloured">Continue</button>
         </footer>
     </div>
+
+    <template id="recent-file-row">
+        <div class="recent-file">
+            <div class="recent-file-left">
+                <h3 id="recent-title"></h3>
+                <p id="recent-artist"></p>
+            </div>
+            <div>
+                <p id="recent-date"></p>
+            </div>
+        </div>
+    </template>
 
     <script src="../scripts/fileSelector.js"></script>
 </body>

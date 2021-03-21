@@ -28,6 +28,23 @@ window.addEventListener('DOMContentLoaded', () => {
             fileErrorLbl.innerText = 'No recent files :('
             return
         }
+
+        const template = document.getElementById('recent-file-row')
+        const container = document.getElementById('recents-container')
+        event.detail.file.recents.forEach(song => {
+            let clone = template.content.cloneNode(true)
+            clone.getElementById('recent-title').innerText = song.title
+            clone.getElementById('recent-artist').innerText = song.artist
+            
+            date = new Date(song.date)
+            day = date.getDate().toString().padStart(2, '0')
+            month = date.getMonth().toString().padStart(2, '0')
+            year = date.getFullYear()
+            clone.getElementById('recent-date').innerText = `${day}/${month}/${year}`
+
+            container.appendChild(clone)
+            console.log(song)
+        })
     })
 
     window.addEventListener('ipc-open-gp-file', event => console.log(event.detail))
