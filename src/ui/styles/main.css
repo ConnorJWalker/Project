@@ -1,0 +1,41 @@
+nav {
+    background-color: var(--background-colour);
+    padding: 15px 7px;
+    overflow: auto;
+}
+
+nav .control-buttons {
+    width: 25%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+nav .control-buttons button {
+    border-radius: 100%;
+    background-color: #fff;
+    border: 1px var(--font-colour) solid;
+}
+
+nav .control-buttons button img {
+    height: 20px;
+    width: auto;
+    padding: 10px;
+}
+
+#play-btn img {
+    height: 30px;
+}
+
+.titles {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 25px;
+}
+
+.titles div {
+    width: 50%;
+}
+
+.titles .titles-right {
+    text-align: right;
+}

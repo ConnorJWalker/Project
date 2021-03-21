@@ -4,8 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/base.css">
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
-    <h1>MAIN PAGE</h1>
+    <nav>
+        <div class="control-buttons">
+            <button><img src="../../../assets/icons/chevron-left-solid.svg" alt="Back arrow"></button>
+            <button id="play-btn"><img src="../../../assets/icons/play-solid.svg" alt="Play button"></button>
+            <button><img src="../../../assets/icons/chevron-right-solid.svg" alt=""></button>
+        </div>
+    </nav>
+    <section class="titles">
+        <div class="titles-left">
+            <h2 id="song-title"></h2>
+            <h4 id="song-artist"></h4>
+        </div>
+        <div class="titles-right">
+            <h2 id="completion-title">Highest Completed: {}%</h2>
+            <h4 id="speed-title">At Speed: {}%</h4>
+        </div>
+    </section>
+
+    <script src="../scripts/mainPage.js"></script>
 </body>
 </html>

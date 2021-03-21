@@ -18,6 +18,7 @@ function createWindow() {
     ipcMain.on('move-to-tabs-page', event => {
         fileSelector.RemoveEventListeners(ipcMain)
         win.loadFile('ui/views/mainPage.html')
+        win.maximize()
     })
 }
 
