@@ -22,11 +22,15 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('ipc-recent-files', event => {
         if (!event.detail.success) {
             fileErrorLbl.innerText = 'Could not load recent files :('
+            fileErrorLbl.style.display = 'block'
             return
         }
         else if (event.detail.file.recents.length === 0) {
             fileErrorLbl.innerText = 'No recent files :('
+            fileErrorLbl.style.display = 'block'
             return
+        } else {
+            fileErrorLbl.style.display = 'none'
         }
 
         const template = document.getElementById('recent-file-row')
