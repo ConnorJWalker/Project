@@ -26,8 +26,23 @@ Track::Track(nlohmann::json input) {
     tuningNotes = getTuningNotes();
 }
 
-std::vector<char> Track::getTuningNotes() {
-    return std::vector<char>();
+std::vector<std::string> Track::getTuningNotes() {
+    std::vector<std::string> notes = std::vector<std::string>();
+    std::vector<std::string> possibleNotes = {
+        "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C"
+    };
+
+    for (int string : tuning) {
+        // If the value is zero then it is a drum, not a guitar string
+        if (string == 0) {
+            notes.emplace_back("DRUM");
+            continue;
+        }
+
+        notes.push_back(possibleNotes[(string - 1) % possibleNotes.size()]);
+    }
+
+    return notes;
 }
 
 Bar::Bar(nlohmann::json input) {

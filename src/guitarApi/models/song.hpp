@@ -22,10 +22,10 @@ class Track {
 private:
     std::string name;
     std::vector<Bar> bars;
-    std::vector<int> tuning; //TODO: create function to change this from int to letter
-    std::vector<char> tuningNotes;
+    std::vector<int> tuning;
+    std::vector<std::string> tuningNotes;
 
-    std::vector<char> getTuningNotes();
+    std::vector<std::string> getTuningNotes();
 
 public:
     Track(nlohmann::json input);
