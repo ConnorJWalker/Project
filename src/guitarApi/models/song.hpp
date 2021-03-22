@@ -23,11 +23,12 @@ private:
     std::string name;
     std::vector<Bar> bars;
     std::vector<int> tuning;
-    std::vector<std::string> tuningNotes;
 
     std::vector<std::string> getTuningNotes();
 
 public:
+    std::vector<std::string> tuningNotes;
+
     Track(nlohmann::json input);
 };
 
@@ -43,4 +44,5 @@ private:
 
 public:
     Song(std::string inputJson);
+    static std::string getUpdatedSongString(std::string input);
 };

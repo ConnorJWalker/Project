@@ -14,6 +14,17 @@ Song::Song(std::string inputJson) {
     }
 }
 
+std::string Song::getUpdatedSongString(std::string input) {
+    Song song = Song(input);
+    nlohmann::json songJson = nlohmann::json::parse(input);
+
+    for (size_t i = 0; i < song.tracks.size(); i++) {
+        songJson["tracks"][i]["tuningNotes"] = song.tracks[i].tuningNotes;
+    }
+
+    return songJson.dump();
+}
+
 Track::Track(nlohmann::json input) {
     name = input.at("name").get<std::string>();
     tuning = input.at("tuning").get<std::vector<int>>();
@@ -44,6 +55,8 @@ std::vector<std::string> Track::getTuningNotes() {
 
     return notes;
 }
+
+
 
 Bar::Bar(nlohmann::json input) {
     auto notesJson = input.at("notes").get<std::vector<nlohmann::json>>();
