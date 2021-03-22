@@ -24,7 +24,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         selectedFile = event.detail.filePaths[0]
         filepathLbl.innerText = selectedFile
-        recentFilesElements.forEach(row => row.classList.remove('selected'))
+        if (recentFilesElements)
+            recentFilesElements.forEach(row => row.classList.remove('selected'))
         enableContinueButton()
     })
 
