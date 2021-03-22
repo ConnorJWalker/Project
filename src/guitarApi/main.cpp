@@ -11,8 +11,6 @@ Value setSongData(const Napi::CallbackInfo& info) {
         return env.Null();
     }
 
-    std::string input = info[0].As<String>();
-
     std::string returnString = Song::getUpdatedSongString(info[0].ToString());
     return String::New(env, returnString);
 }
