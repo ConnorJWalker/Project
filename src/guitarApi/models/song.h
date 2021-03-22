@@ -14,18 +14,21 @@ private:
 };
 
 class Track {
-    // Properties
+// Properties
+private:
     std::string name;
     std::vector<Bar> bars;
     std::vector<int> tuning; //TODO: create function to change this from int to letter
 };
 
 class Bar {
-    // Properties
+// Properties
+private:
     std::vector<Note> notes;
 };
 
 class Note {
-    // Properties
+// Properties
+private:
     std::vector<int> notes;
 };
