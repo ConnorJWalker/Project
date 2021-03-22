@@ -4,4 +4,5 @@ __pycache__/
 build/
 .DS_Store
 .idea/
+.vscode/
 cmake-build-debug/
