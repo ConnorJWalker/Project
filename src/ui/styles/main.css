@@ -39,3 +39,11 @@ nav .control-buttons button img {
 .titles .titles-right {
     text-align: right;
 }
+
+.canvas-container {
+    margin: 5px 25px;
+}
+
+canvas {
+    width: 100%;
+}

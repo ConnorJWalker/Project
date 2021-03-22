@@ -6,15 +6,20 @@ const song = {
     title: 'Alligator Blood',
     artist: 'Bring me the Horizon',
     tracknames: ['Rhythm Guitar', 'Lead Guitar', 'Bass', 'Background Guitar'],
-    tracks: [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
+    tracks: [{ bars: [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]] }],
     completion: {
         highestPercentage: 72,
         atSpeed: 90
     }
 }
 
+let renderer
+
 window.addEventListener('DOMContentLoaded', () => {
     displaySongDetails()
+
+    renderer = new Renderer(song)
+    renderer.renderBars(song.tracks[0].bars.length)
 })
 
 function displaySongDetails() {
