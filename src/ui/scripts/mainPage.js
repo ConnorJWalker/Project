@@ -1,25 +1,8 @@
-/*
- * TEMP SONG
- * TODO: replace with selected song
- */
-const song = {
-    title: 'Alligator Blood',
-    artist: 'Bring me the Horizon',
-    tracknames: ['Rhythm Guitar', 'Lead Guitar', 'Bass', 'Background Guitar'],
-    tracks: [{ bars: [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]] }],
-    completion: {
-        highestPercentage: 72,
-        atSpeed: 90
-    }
-}
-
-let renderer
+let renderer, song
 
 window.addEventListener('DOMContentLoaded', () => {
-    displaySongDetails()
-
-    renderer = new Renderer(song)
-    renderer.renderBars(song.tracks[0].bars.length)
+    window.postMessage({ message: 'request-song' })
+    window.addEventListener('ipc-recieved-song', onRecieveSong)
 })
 
 function displaySongDetails() {
@@ -30,4 +13,14 @@ function displaySongDetails() {
     completionSpeed = document.getElementById('speed-title')
     completion.innerText = completion.innerText.replace('{}', song.completion.highestPercentage)
     completionSpeed.innerText = completionSpeed.innerText.replace('{}', song.completion.atSpeed)
+}
+
+function onRecieveSong(event) {
+    song = event.detail
+    // TODO: dont hardcode this
+    song.completion = { highestPercentage: 72, atSpeed: 90 }
+
+    displaySongDetails()
+    renderer = new Renderer(song)
+    renderer.renderBars(song.tracks[0].bars.length)
 }

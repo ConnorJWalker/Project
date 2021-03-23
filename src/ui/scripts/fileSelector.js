@@ -65,8 +65,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     window.addEventListener('ipc-open-gp-file', event => {
-        console.log(event.detail)
-        window.postMessage({ message: 'move-to-tabs-page' })
+        window.postMessage({ message: 'move-to-tabs-page', args: event.detail })
     })
 
     window.postMessage({ message: 'get-recent-files' })

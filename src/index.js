@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const fileSelector = require('./ipcMainScripts/fileSelector')
-const guitarApi = require('./guitarApi')
+const mainPage = require('./ipcMainScripts/mainPage')
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -15,10 +15,11 @@ function createWindow() {
     fileSelector.AddEventListeners(ipcMain)
     win.loadFile('ui/views/fileSelector.html')
     
-    ipcMain.on('move-to-tabs-page', event => {
+    ipcMain.on('move-to-tabs-page', (_, song) => {
         fileSelector.RemoveEventListeners(ipcMain)
         win.loadFile('ui/views/mainPage.html')
         win.maximize()
+        mainPage.AddEventListeners(ipcMain, song)
     })
 }
 
