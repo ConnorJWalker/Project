@@ -19,7 +19,7 @@ class Renderer {
         // Reset x and y to prevent rerenders apearing off screen
         this.currentX = 0
         this.currentY = 0
-
+        
         for (let i = 0; i < numberOfBars; i++) {
             // TODO: work out height properly without hardcoding
             this.context.strokeRect(this.currentX, this.currentY, this.canvasWidth / 3, this.settings.barHeight)

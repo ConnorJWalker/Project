@@ -47,3 +47,7 @@ nav .control-buttons button img {
 canvas {
     width: 100%;
 }
+
+select {
+    margin: 5px 25px;
+}
