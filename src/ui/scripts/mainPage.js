@@ -1,8 +1,10 @@
-let renderer, song
+let renderer, song, tracknameDropdown
 
 window.addEventListener('DOMContentLoaded', () => {
     window.postMessage({ message: 'request-song' })
     window.addEventListener('ipc-recieved-song', onRecieveSong)
+
+    tracknameDropdown = document.getElementById('track-dropdown')
 })
 
 function displaySongDetails() {
@@ -23,6 +25,15 @@ function onRecieveSong(event) {
     displaySongDetails()
     renderer = new Renderer(song)
     renderer.renderBars(song.tracks[0].bars.length, song.tracks[0].tuningNotes)
+    populateTrackSelector(song.tracknames)
 
     window.addEventListener('resize', () => renderer.reRenderCanvas(song.tracks[0].bars.length, song.tracks[0].tuningNotes))
+    tracknameDropdown.addEventListener('change', e => {
+        console.log(e)
+    })
+}
+
+function populateTrackSelector(tracknames) {
+    let tracks = tracknameDropdown
+    tracknames.forEach((track, i) => tracks.innerHTML += `<option value=${i}>${track}</option>`)
 }
