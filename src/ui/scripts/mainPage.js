@@ -23,4 +23,6 @@ function onRecieveSong(event) {
     displaySongDetails()
     renderer = new Renderer(song)
     renderer.renderBars(song.tracks[0].bars.length)
+
+    window.addEventListener('resize', () => renderer.reRenderCanvas(song.tracks[0].bars.length))
 }
