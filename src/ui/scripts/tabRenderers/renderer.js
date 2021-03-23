@@ -10,13 +10,12 @@ class Renderer {
         this.settings = {
             barsPerLine:  3,
             barHeight: 100,
-            numStrings: 6 // TODO: dont hardcode this
         }
 
         this.canvas.height = (Math.ceil(song.tracks[0].bars.length / this.settings.barsPerLine) * (this.settings.barHeight + 10))
     }
 
-    renderBars(numberOfBars) {
+    renderBars(numberOfBars, tuningNotes) {
         // Reset x and y to prevent rerenders apearing off screen
         this.currentX = 0
         this.currentY = 0
@@ -24,7 +23,7 @@ class Renderer {
         for (let i = 0; i < numberOfBars; i++) {
             // TODO: work out height properly without hardcoding
             this.context.strokeRect(this.currentX, this.currentY, this.canvasWidth / 3, this.settings.barHeight)
-            this.renderStringsInBar()
+            this.renderStringsInBar(tuningNotes)
 
             // We have drawn the max amount of bars per line
             if ((i + 1) % this.settings.barsPerLine === 0) {
@@ -37,12 +36,12 @@ class Renderer {
         }
     }
 
-    renderStringsInBar() {
+    renderStringsInBar(tuningNotes) {
         this.context.beginPath()
-        const height = this.settings.barHeight / this.settings.numStrings
+        const height = this.settings.barHeight / (tuningNotes.length - 1)
         let currenyY = this.currentY + height
 
-        for (let i = 0; i < this.settings.numStrings - 1; i++) {
+        for (let i = 0; i < tuningNotes.length - 1; i++) {
             this.context.moveTo(this.currentX, currenyY)
             this.context.lineTo(this.currentX + this.canvasWidth / this.settings.barsPerLine, currenyY)
             currenyY += height
@@ -59,8 +58,8 @@ class Renderer {
         return width
     }
 
-    reRenderCanvas(numberOfBars) {
+    reRenderCanvas(numberOfBars, tuningNotes) {
         this.canvasWidth = this.getCanvasWidth()
-        this.renderBars(numberOfBars)
+        this.renderBars(numberOfBars, tuningNotes)
     }
 }
