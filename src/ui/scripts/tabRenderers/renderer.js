@@ -17,7 +17,8 @@ class Renderer {
         // Reset x and y to prevent rerenders apearing off screen
         this.currentX = 0
         this.currentY = 20 // Padding to prevent cut off
-        
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
         for (let i = 0; i < numberOfBars; i++) {
             if (i === 0) {
                 this.renderBarWithTuningNotes(tuningNotes)

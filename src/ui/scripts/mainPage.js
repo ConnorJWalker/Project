@@ -29,7 +29,7 @@ function onRecieveSong(event) {
 
     window.addEventListener('resize', () => renderer.reRenderCanvas(song.tracks[0].bars.length, song.tracks[0].tuningNotes))
     tracknameDropdown.addEventListener('change', e => 
-        renderer.renderBars(song.tracks[e.target.value].length, song.tracks[e.target.value].tuningNotes))
+        renderer.renderBars(song.tracks[e.target.value].tuningNotes.length, song.tracks[e.target.value].tuningNotes))
 }
 
 function populateTrackSelector(tracknames) {
