@@ -24,7 +24,7 @@ class Renderer {
                 this.renderBarWithTuningNotes(tuningNotes, bars[0])
                 continue
             }
-            
+
             // TODO: work out height properly without hardcoding
             this.context.strokeRect(this.currentX, this.currentY, this.canvasWidth / 3, this.settings.barHeight)
             this.renderStringsInBar(tuningNotes, bars[i])
@@ -32,7 +32,7 @@ class Renderer {
             // We have drawn the max amount of bars per line
             if ((i + 1) % this.settings.barsPerLine === 0) {
                 this.currentX = 0;
-                this.currentY += this.settings.barHeight + 10 // TODO: not hardcode this
+                this.currentY += this.settings.barHeight + 30 // TODO: not hardcode this
                 continue
             }
 
@@ -47,12 +47,14 @@ class Renderer {
         start = start || 0
         let yCoords = []
 
-        for (let i = 0; i < tuningNotes.length - 1; i++) {
+        yCoords.push(this.currentY)
+        for (let i = 0; i < tuningNotes.length - 2; i++) {
             this.context.moveTo(this.currentX + start, currenyY)
             this.context.lineTo(this.currentX + this.canvasWidth / this.settings.barsPerLine, currenyY)
             yCoords.push(currenyY)
             currenyY += height
         }
+        yCoords.push(currenyY)
         
         this.context.closePath()
         this.context.stroke()
@@ -84,17 +86,21 @@ class Renderer {
     }
 
     renderBarNotes(bar, barX, barY, width, numStrings) {
+        const colour = this.context.fillStyle
         bar.notes.forEach(notes => {
             if (notes.note.length === 0) return
-            const padding = 2
+            const padding = 4
             const rectHeight = parseInt(this.context.font) + 4
 
             notes.note.forEach(val => {
                 const x = this.map(notes.start, bar.start, bar.end, barX + 15, barX + (Math.abs(width) - 15))
-                const y = barY[val.string - 2]
-                console.log(val, x, y - rectHeight * 2, this.context.measureText(val.fret).width + padding * 2, rectHeight)
-                this.context.clearRect(x, y, this.context.measureText(val.fret).width + padding * 2, rectHeight)
-
+                const y = barY[val.string - 1]
+                
+                const textWidth = this.context.measureText(val.fret).width
+                
+                this.context.fillStyle = '#f2f2f2' // TODO: not hardcode this
+                this.context.fillRect(x - padding, y - padding,  (textWidth + padding * 2), rectHeight)
+                this.context.fillStyle = colour
                 this.context.fillText(val.fret, x, y)
             })
         })
