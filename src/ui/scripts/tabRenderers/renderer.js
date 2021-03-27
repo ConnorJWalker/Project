@@ -97,7 +97,7 @@ class Renderer {
                 const y = barY[val.string - 1]
                 const noteToRender = this.addEffects(val.fret, val.effects)
                 const textWidth = this.context.measureText(noteToRender).width
-                
+
                 this.context.fillStyle = '#f2f2f2' // TODO: not hardcode this
                 this.context.fillRect(x - padding, y - padding,  (textWidth + padding * 2), rectHeight)
                 this.context.fillStyle = colour
@@ -126,9 +126,22 @@ class Renderer {
 
     addEffects(note, effects) {
         let returnVal = `${note}`
-        if (effects.nHarmonic)
+        if (effects.nHarmonic) {
             returnVal = `< ${note} >`
-            
+        } else if (effects.slides) {
+            if (effects.slides == 'upI') {
+                returnVal = `/ ${note}`
+            } else if (effects.slides == 'downI') {
+                returnVal = `\\ ${note}`
+            } else if (effects.slides == 'downO') {
+                returnVal = `${note} \\`
+            } else if (effects.slides == 'upO') {
+                returnVal = `${note} /`
+            }
+        } else if (effects.dead) {
+            returnVal = 'x'
+        }
+        console.log(effects)
         return returnVal
     }
 

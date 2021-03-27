@@ -43,12 +43,26 @@ class Note:
         self.note = []
 
         for note in notes:
-            self.note.append({
+            addition = {
                 "string": note.string,
                 "fret": note.value,
                 "effects": {
                     "nHarmonic": note.effect.isHarmonic,
                     "palmMute": note.effect.palmMute
                 }
-            })
+            }
+
+            if len(note.effect.slides) > 0:
+                if note.effect.slides[0].name == "intoFromBelow":
+                    addition["effects"].update({"slides": "upI"})
+                elif note.effect.slides[0].name == 'intoFromAbove':
+                    addition["effects"].update({"slides": "downI"})
+                elif note.effect.slides[0].name == 'outDownwards':
+                    addition["effects"].update({"slides": "downO"})
+                elif note.effect.slides[0].name == 'outUpwards':
+                    addition["effects"].update({"slides": "upO"})
+            if note.type.name == "dead":
+                addition["effects"].update({"dead": True})
+
+            self.note.append(addition)
             self.start = note.beat.start
