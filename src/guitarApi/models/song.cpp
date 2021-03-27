@@ -62,10 +62,24 @@ std::vector<std::string> Track::getTuningNotes() {
 Bar::Bar(nlohmann::json input) {
     auto notesJson = input.at("notes").get<std::vector<nlohmann::json>>();
     for (const auto& note : notesJson) {
+        notes.emplace_back(Notes(note));
+    }
+}
+
+Notes::Notes(nlohmann::json input) {
+    try {
+        start = input.at("start").get<int>();
+    } catch (nlohmann::detail::out_of_range e) {
+        start = -1;
+    }
+    
+    auto notesJson = input.at("note").get<std::vector<nlohmann::json>>();
+    for (const auto& note : notesJson) {
         notes.emplace_back(Note(note));
     }
 }
 
 Note::Note(nlohmann::json input) {
-    notes = input.at("note").get<std::vector<int>>();
+    string = input.at("string").get<int>();
+    fret = input.at("fret").get<int>();
 }

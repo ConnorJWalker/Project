@@ -24,13 +24,21 @@ function onRecieveSong(event) {
 
     displaySongDetails()
     renderer = new Renderer(song)
-    renderer.renderBars(song.tracks[0].bars.length, song.tracks[0].tuningNotes)
+    renderer.renderBars(song.tracks[0].bars.length, song.tracks[0].tuningNotes, song.tracks[0].bars)
     populateTrackSelector(song.tracknames)
 
-    window.addEventListener('resize', () => 
-        renderer.reRenderCanvas(song.tracks[tracknameDropdown.value].bars.length, song.tracks[tracknameDropdown.value].tuningNotes))
-    tracknameDropdown.addEventListener('change', e => 
-        renderer.renderBars(song.tracks[e.target.value].bars.length, song.tracks[e.target.value].tuningNotes))
+    window.addEventListener('resize', () => {
+        const i = tracknameDropdown.value
+        renderer.reRenderCanvas(
+            song.tracks[i].bars.length, song.tracks[i].tuningNotes, song.tracks[i].bars
+        )  
+    })
+    tracknameDropdown.addEventListener('change', e => {
+        const i = e.target.value
+        renderer.renderBars(
+            song.tracks[i].bars.length, song.tracks[i].tuningNotes, song.tracks[i].bars
+        )
+    })
 }
 
 function populateTrackSelector(tracknames) {

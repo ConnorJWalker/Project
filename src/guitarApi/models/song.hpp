@@ -4,15 +4,25 @@
 
 class Note {
 private:
-    std::vector<int> notes;
+    int string;
+    int fret;
 
 public:
     Note(nlohmann::json input);
 };
 
-class Bar {
+class Notes {
 private:
     std::vector<Note> notes;
+    int start;
+
+public:
+    Notes(nlohmann::json input);
+};
+
+class Bar {
+private:
+    std::vector<Notes> notes;
 
 public:
     Bar(nlohmann::json input);

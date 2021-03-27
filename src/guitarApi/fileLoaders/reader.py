@@ -31,6 +31,8 @@ class Track:
 class Bar:
     def __init__(self, bar, tuning):
         self.notes = []
+        self.start = bar.start
+        self.end = bar.end
 
         for voice in bar.voices:
             for beat in voice.beats:
@@ -41,4 +43,8 @@ class Note:
         self.note = []
 
         for note in notes:
-            self.note.append(note.value)
+            self.note.append({
+                "string": note.string,
+                "fret": note.value,
+            })
+            self.start = note.beat.start
