@@ -95,13 +95,19 @@ class Renderer {
             notes.note.forEach(val => {
                 const x = this.map(notes.start, bar.start, bar.end, barX + 15, barX + (Math.abs(width) - 15))
                 const y = barY[val.string - 1]
-                
-                const textWidth = this.context.measureText(val.fret).width
+                const noteToRender = this.addEffects(val.fret, val.effects)
+                const textWidth = this.context.measureText(noteToRender).width
                 
                 this.context.fillStyle = '#f2f2f2' // TODO: not hardcode this
                 this.context.fillRect(x - padding, y - padding,  (textWidth + padding * 2), rectHeight)
                 this.context.fillStyle = colour
-                this.context.fillText(val.fret, x, y)
+                this.context.fillText(noteToRender, x, y)
+
+                if (val.effects.palmMute) {
+                    this.context.font = '20px sans-serif'
+                    this.context.fillText('.', x, barY[0] - 15)
+                    this.context.font = '10px sans-serif'
+                }
             })
         })
     }
@@ -116,6 +122,14 @@ class Renderer {
     reRenderCanvas(numberOfBars, tuningNotes, bars) {
         this.canvasWidth = this.getCanvasWidth()
         this.renderBars(numberOfBars, tuningNotes, bars)
+    }
+
+    addEffects(note, effects) {
+        let returnVal = `${note}`
+        if (effects.nHarmonic)
+            returnVal = `< ${note} >`
+            
+        return returnVal
     }
 
     // https://github.com/processing/p5.js/blob/1.1.9/src/math/calculation.js#L408

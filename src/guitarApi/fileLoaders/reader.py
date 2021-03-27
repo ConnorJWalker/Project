@@ -46,5 +46,9 @@ class Note:
             self.note.append({
                 "string": note.string,
                 "fret": note.value,
+                "effects": {
+                    "nHarmonic": note.effect.isHarmonic,
+                    "palmMute": note.effect.palmMute
+                }
             })
             self.start = note.beat.start
