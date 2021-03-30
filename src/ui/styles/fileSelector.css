@@ -25,11 +25,13 @@ section {
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 5px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-.recent-file:hover, .selected {
-    background-color: #56DD8F40;
+.selected {
+    background-color: #56DD8F40 !important; /* Prevent hover bg colour overpowering */
     cursor: pointer;
 }
 
@@ -39,6 +41,7 @@ section {
 
 #recent-date {
     text-align: right;
+    margin-top: 11px;
 }
 
 #recent-file-errors {

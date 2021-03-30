@@ -3,6 +3,11 @@
     --font-colour: #707070;
 }
 
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../../../assets/fonts/Ubuntu-Regular.ttf');
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +15,7 @@
     outline: none;
     border: none;
     overflow-x: hidden;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 html, body {
@@ -25,5 +31,10 @@ html, body {
 }
 
 button {
+    cursor: pointer;
+}
+
+.selectable:hover {
+    background-color: #70707040;
     cursor: pointer;
 }
