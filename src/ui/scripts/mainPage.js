@@ -1,10 +1,11 @@
-let renderer, song, tracknameDropdown
+let renderer, song, tracknameDropdown, isCurrentlyPlaying = false
 
 window.addEventListener('DOMContentLoaded', () => {
     window.postMessage({ message: 'request-song' })
     window.addEventListener('ipc-recieved-song', onRecieveSong)
 
     tracknameDropdown = document.getElementById('track-dropdown')
+    setupControlButtons()
 })
 
 function displaySongDetails() {
@@ -44,4 +45,30 @@ function onRecieveSong(event) {
 function populateTrackSelector(tracknames) {
     let tracks = tracknameDropdown
     tracknames.forEach((track, i) => tracks.innerHTML += `<option value=${i}>${track}</option>`)
+}
+
+async function setupControlButtons() {
+    const iconsPath = '../../../assets/icons/{}.svg'
+    let iconPromiseArray = []; // This semicolon prevents error
+    ['chevron-left-solid', 'chevron-right-solid', 'play-solid', 'pause-solid'].forEach(icon => {
+        iconPromiseArray.push(fetch(iconsPath.replace('{}', icon)))
+    })
+
+    let responses = await Promise.all(iconPromiseArray)
+    responses = await Promise.all(responses.map(res => res.text()))
+
+    document.getElementById('prev-btn').innerHTML = responses[0]
+    document.getElementById('next-btn').innerHTML = responses[1]
+    
+    const playButton = document.getElementById('play-btn')
+    playButton.innerHTML = responses[2]
+    playButton.addEventListener('click', () => {
+        playButton.innerHTML = responses[isCurrentlyPlaying ? 2 : 3]
+        isCurrentlyPlaying = !isCurrentlyPlaying
+
+        if (isCurrentlyPlaying)
+            playButton.classList.add('paused')
+        else
+            playButton.classList.remove('paused')
+    })
 }
